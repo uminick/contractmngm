@@ -10,7 +10,7 @@ class [[eosio::contract]] contractmngm : public eosio::contract {
   contractmngm(name receiver, name code,  datastream<const char*> ds): contract(receiver, code, ds) {}
 
   [[eosio::action]]
-    void upsert(name user, std::string contractor, std::string convenantee, std::string title, std::string hashv, std::string oglink) {
+    void upsert(name user, std::string contractor1, std::string contractor2, std::string title, std::string hashv, std::string oglink) {
     require_auth( user );
     contract_index contracts(_code, _code.value);
     auto iterator = contracts.find(user.value);
@@ -18,8 +18,8 @@ class [[eosio::contract]] contractmngm : public eosio::contract {
       {
 	contracts.emplace(user, [&]( auto& row ) {
 	    row.key = user;
-	    row.contractor = contractor;
-	    row.convenantee = convenantee;
+	    row.contractor1 = contractor1;
+	    row.contractor2 = contractor2;
 	    row.title = title;
 	    row.hashv = hashv;
 	    row.oglink = oglink;
@@ -29,8 +29,8 @@ class [[eosio::contract]] contractmngm : public eosio::contract {
       std::string changes;
       contracts.modify(iterator, user, [&]( auto& row ) {
 	  row.key = user;
-	  row.contractor = contractor;
-	  row.convenantee = convenantee;
+	  row.contractor1 = contractor1;
+	  row.contractor2 = contractor2;
 	  row.title = title;
 	  row.hashv = hashv;
 	  row.oglink = oglink;
@@ -52,8 +52,8 @@ class [[eosio::contract]] contractmngm : public eosio::contract {
  private:
   struct [[eosio::table]] contractinfo {
     name key;
-    std::string contractor;
-    std::string convenantee;
+    std::string contractor1;
+    std::string contractor2;
     std::string title;
     std::string hashv;
     std::string oglink;
