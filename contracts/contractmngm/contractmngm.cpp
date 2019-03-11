@@ -41,6 +41,10 @@ class [[eosio::contract]] contractmngm : public eosio::contract {
 	    row.contractor1 = contractor1;
 	    changes += "contractor1 ";
 	  }
+	  if(row.contractor2 != contractor2) {
+	    row.contractor2 = contractor2;
+	    changes += "contractor2 ";
+	  }
 	  if(row.title != title) {
 	    row.title = title;
 	    changes += "title ";
